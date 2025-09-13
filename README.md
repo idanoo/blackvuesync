@@ -9,7 +9,7 @@ A typical setup would be a periodic cron job or a Docker container running on a 
 ## Features
 
 * *Portable runtimes:*
-  * A [single, self-contained Python script](https://github.com/acolomba/blackvuesync/blob/master/blackvuesync.py) with no third-party dependencies. It can be copied and run anywhere, either [manually](#manual-usage) or [periodically](#unattended-usage).
+  * A [single, self-contained Python script](https://github.com/idanoo/blackvuesync/blob/master/blackvuesync.py) with no third-party dependencies. It can be copied and run anywhere, either [manually](#manual-usage) or [periodically](#unattended-usage).
   * A [docker image](#docker) that runs periodically via an internal cron job.
 * *Smart*: Only downloads recordings that haven't already been downloaded.
 * *Resilient*: If a download interrupts for whatever reason, the script resumes where it left off the next time it runs. This is especially useful for possibly unreliable Wi-Fi connections from a garage.
@@ -139,13 +139,13 @@ The [openmediavault](http://www.openmediavault.org/) NAS solution allows running
 
 Example:
 
-![openmediavault Scheduled Job](https://raw.githubusercontent.com/acolomba/blackvuesync/master/docs/images/cron-example-openmediavault.png)
+![openmediavault Scheduled Job](https://raw.githubusercontent.com/idanoo/blackvuesync/master/docs/images/cron-example-openmediavault.png)
 
 #### Docker
 
 ##### Overview
 
-The [acolomba/blackvuesync](https://hub.docker.com/r/acolomba/blackvuesync/) docker image sets up a cron job internal to the container that runs the synchronization operation every 15 minutes.
+The docker image sets up a cron job internal to the container that runs the synchronization operation every 15 minutes.
 
 ##### Quick Start
 
@@ -159,7 +159,7 @@ docker run -it --rm \
     -e VERBOSE=1 \
     -e RUN_ONCE=1 \
     --name blackvuesync \
-acolomba/blackvuesync
+    ghcr.io/idanoo/blackvuesync:latest
 ```
 
 Once that works, a typical invocation would be similar to:
@@ -173,14 +173,14 @@ docker run -d --restart unless-stopped \
     -e TZ="America/New_York" \
     -e KEEP=2w \
     --name blackvuesync \
-acolomba/blackvuesync
+    ghcr.io/idanoo/blackvuesync:latest
 ```
 
 ##### Docker Compose
 
 [Docker Compose](https://docs.docker.com/compose/) may offer an easier, more repeatable and extensible option for running a BlackVueSync Docker container.
 
-After downloading the Docker [Compose file](https://raw.githubusercontent.com/acolomba/blackvuesync/main/docker-compose.yml) and editing its values as desired, BlackVueSync can be started with:
+After downloading the Docker [Compose file](https://raw.githubusercontent.com/idanoo/blackvuesync/main/docker-compose.yml) and editing its values as desired, BlackVueSync can be started with:
 
 ```sh
 docker-compose up -d

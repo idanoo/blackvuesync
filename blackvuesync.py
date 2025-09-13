@@ -265,8 +265,14 @@ def download_file(base_url, filename, destination, group_name):
 
         start = time.perf_counter()
         try:
-            _, headers = urllib.request.urlretrieve(url, temp_filepath)
-            size = headers["Content-Length"]
+            request = urllib.request.Request(url)
+            response = urllib.request.urlopen(request)
+            headers = response.info()
+            size = headers.get("Content-Length")
+            
+            # Write the file manually
+            with open(temp_filepath, 'wb') as f:
+                shutil.copyfileobj(response, f)
         finally:
             end = time.perf_counter()
             elapsed_s = end - start
@@ -565,7 +571,7 @@ def lock(destination):
         fcntl.lockf(lf_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
 
         return lf_fd
-    except IOError:
+    except OSError:
         raise UserWarning("Another instance is already running for destination : %s" % destination)
 
 
@@ -577,7 +583,7 @@ def unlock(lf_fd):
 def parse_args():
     """parses the command-line arguments"""
     arg_parser = argparse.ArgumentParser(description="Synchronizes BlackVue dashcam recordings with a local directory.",
-                                         epilog="Bug reports: https://github.com/acolomba/BlackVueSync")
+                                         epilog="Bug reports: https://github.com/idanoo/blackvuesync")
     arg_parser.add_argument("address", metavar="ADDRESS",
                             help="dashcam IP address or name")
     arg_parser.add_argument("-d", "--destination", metavar="DEST",
