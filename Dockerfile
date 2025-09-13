@@ -1,5 +1,4 @@
-FROM alpine:3.15.0
-LABEL maintainer="Alessandro Colomba https://github.com/acolomba"
+FROM alpine:3.22
 
 RUN apk add --update bash python3 shadow tzdata \
     && rm -rf /var/cache/apk/* \
@@ -24,9 +23,7 @@ ENV ADDRESS="" \
     DRY_RUN="" \
     RUN_ONCE=""
 
-COPY --chown=dashcam blackvuesync.sh /blackvuesync.sh
-RUN chmod +x /blackvuesync.sh
-
+COPY --chown=dashcam --chmod=775 blackvuesync.sh /blackvuesync.sh
 COPY --chown=dashcam blackvuesync.py /blackvuesync.py
 
 ENTRYPOINT [ "/entrypoint.sh"]

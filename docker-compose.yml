@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   blackvuesync:
-    image: acolomba/blackvuesync
+    image: ghcr.io/idanoo/blackvuesync:latest
     container_name: blackvuesync
     restart: unless-stopped
 
@@ -31,17 +31,17 @@ services:
 
       # Groups downloaded recordings in directories: 'daily', 'weekly',
       # 'monthly', 'yearly' and 'none' are supported.
-      GROUPING: none
+      GROUPING: monthly
 
       # Retention period of downloaded recordings. Recordings prior to the
       # retention period will be removed from the destination. Accepted units
       # are 'd' for days and 'w' for weeks. If no unit is indicated, days are
       # assumed.
-      KEEP: 2w
+      KEEP: 12w
 
       # Stops downloading if the amount of used disk space exceeds the indicated
       # percentage value.
-      MAX_USED_DISK: 90
+      MAX_USED_DISK: 95
 
       # Sets the timeout in seconds for connecting to the dashcam.
       TIMEOUT: 10.0
