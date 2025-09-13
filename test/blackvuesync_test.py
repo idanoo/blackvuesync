@@ -107,6 +107,7 @@ def test_calc_cutoff_date(keep, expected_cutoff_date):
       "20190224_172341_EF.mp4", "20190224_172341_ER.mp4", "20190219_104220_NF.mp4", "20190219_104220_NR.mp4",
       "20190219_223201_NF.mp4", "20190219_223201_NR.mp4", "20190219_224918_PF.mp4", "20190219_224918_PR.mp4"]),
 ])
+
 def test_sort_recordings(priority, filenames, expected_sorted_filenames):
     recordings = [blackvuesync.to_recording(f, "none") for f in filenames]
     expected_sorted_recordings = [blackvuesync.to_recording(f, "none") for f in expected_sorted_filenames]
