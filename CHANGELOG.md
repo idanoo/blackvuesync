@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.0 (2025-09-13)
+
+* Added github action to build :latest docker tag on push to main
+* Updated docker image to latest alpine
+* 
+
 ## 1.9 (2021-08-08)
 
 * Properly removes outdated recordings with new event types and upload flags from May 2021 firmware. (#4)
